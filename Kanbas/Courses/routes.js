@@ -11,16 +11,22 @@ export default function CourseRoutes(app) {
 
   app.post("/api/courses", async (req, res) => {
     const course = await dao.createCourse(req.body);
+    // enroll current user into new course
     const currentUser = req.session["currentUser"];
     if (currentUser) {
       await enrollmentsDao.enrollUserInCourse(currentUser._id, course._id);
     }
-
     res.json(course);
   });
 
   app.delete("/api/courses/:courseId", async (req, res) => {
     const { courseId } = req.params;
+    // delete all Enrollments For Course
+    await enrollmentsDao.deleteEnrollmentsForCourse(courseId);
+    // delete all Modules For Course
+    await modulesDao.deleteModulesForCourse(courseId);
+    // delete all Assignments For Course
+    await assignmentsDao.deleteAssignmentsForCourse(courseId);
     const status = await dao.deleteCourse(courseId);
     res.send(status);
     // res.sendStatus(204);

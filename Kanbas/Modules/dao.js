@@ -10,7 +10,6 @@ export function findModulesForCourse(courseId) {
 export function createModule(module) {
   delete module._id;
   const newModule = model.create(module);
-  // console.log("create current module: ", newModule._id);
   return newModule;
   // const newModule = { ...module, _id: Date.now().toString() };
   // Database.modules = [...Database.modules, newModule];
@@ -27,9 +26,13 @@ export function deleteModule(moduleId) {
 export function updateModule(moduleId, moduleUpdates) {
   // console.log("update current module: ", moduleId);
   return model.updateOne({ _id: moduleId }, moduleUpdates);
-
   // const { modules } = Database;
   // const module = modules.find((module) => module._id === moduleId);
   // Object.assign(module, moduleUpdates);
   // return module;
+}
+
+// When delete course, delete Modules for Course
+export function deleteModulesForCourse(courseId) {
+  return model.deleteMany({ course: courseId });
 }

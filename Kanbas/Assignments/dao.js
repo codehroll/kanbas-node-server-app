@@ -31,3 +31,8 @@ export function updateAssignment(assignmentId, assignmentUpdates) {
   // Object.assign(assignment, assignmentUpdates);
   // return assignment;
 }
+
+// When delete course, delete Assignments for Course
+export function deleteAssignmentsForCourse(courseId) {
+  return model.deleteMany({ course: courseId });
+}
