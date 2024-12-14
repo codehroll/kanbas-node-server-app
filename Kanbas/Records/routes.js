@@ -11,7 +11,7 @@ export default function RecordsRoutes(app) {
   const router = express.Router();
   app.use("/", router);
 
-  // 创建新的记录
+  // create a record
   router.post("/api/records", async (req, res) => {
     const record = req.body;
     console.log("POST /api/records - Incoming data:", record);
@@ -25,7 +25,7 @@ export default function RecordsRoutes(app) {
     }
   });
 
-  // 获取某个 Quiz 的所有记录
+  // find all records for a Quiz
   router.get("/api/records/quiz/:quizId", async (req, res) => {
     const { quizId } = req.params;
     console.log("GET /api/records/quiz/:quizId - quizId:", quizId);
@@ -38,7 +38,7 @@ export default function RecordsRoutes(app) {
     }
   });
 
-  // 获取某个 User 的所有记录
+  // find all records for a User
   router.get("/api/records/user/:userId", async (req, res) => {
     const { userId } = req.params;
     console.log("GET /api/records/user/:userId - userId:", userId);
@@ -51,7 +51,7 @@ export default function RecordsRoutes(app) {
     }
   });
 
-  // 获取某个 Quiz 下某个 User 的所有记录
+  // find all the records for a User in a Quiz
   router.get("/api/records/quiz/:quizId/user/:userId", async (req, res) => {
     const { quizId, userId } = req.params;
     console.log(
@@ -77,10 +77,12 @@ export default function RecordsRoutes(app) {
 
       try {
         // Fetch all records for the specified quizId and userId
-        const records = await findRecordsForQuizAndUser(quizId, userId)
+        const records = await findRecordsForQuizAndUser(quizId, userId);
 
         // Get the most recent record by attemptTime
-        const mostRecentRecord = records.sort((a, b) => b.attemptTime - a.attemptTime)[0];
+        const mostRecentRecord = records.sort(
+          (a, b) => b.attemptTime - a.attemptTime
+        )[0];
 
         if (records.length === 0) {
           // Explicitly return null if no records found
@@ -98,7 +100,7 @@ export default function RecordsRoutes(app) {
     }
   );
 
-  // 删除一条记录
+  // delete a record
   router.delete("/api/records/:recordId", async (req, res) => {
     const { recordId } = req.params;
     console.log("DELETE /api/records/:recordId - recordId:", recordId);

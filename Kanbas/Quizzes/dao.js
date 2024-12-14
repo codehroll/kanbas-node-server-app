@@ -1,33 +1,33 @@
 import model from "./model.js";
 
-// 查询特定课程的所有 Quizzes
+// find all Quizzes for a course
 export function findQuizzesForCourse(courseId) {
   return model.find({ course: courseId });
 }
 
-// 创建新的 Quiz
+// create new  Quiz
 export function createQuiz(quiz) {
   console.log("quiz, ", quiz);
-  delete quiz._id; // 删除前端可能带来的 _id
+  delete quiz._id; // delete the previous _id from front_end
   return model.create(quiz);
 }
 
-// 删除指定 Quiz
+// delete Quiz
 export function deleteQuiz(quizId) {
   return model.deleteOne({ _id: quizId });
 }
 
-// 更新指定 Quiz
+// update Quiz
 export function updateQuiz(quizId, quizUpdates) {
   return model.updateOne({ _id: quizId }, { $set: quizUpdates });
 }
 
-// 查询所有 Quizzes（可选）
+// find all Quizzes
 export function findAllQuizzes() {
   return model.find();
 }
 
-// 查询单个 Quiz
+// find a Quiz with quizId
 export function findQuizById(quizId) {
   return model.findById(quizId);
 }

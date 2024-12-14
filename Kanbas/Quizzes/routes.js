@@ -1,7 +1,7 @@
 import * as quizzesDao from "./dao.js";
 
 export default function QuizzesRoutes(app) {
-  // 查询某课程的所有 Quizzes
+  // find all Quizzes for a course
   app.get("/api/courses/:courseId/quizzes", async (req, res) => {
     const { courseId } = req.params;
     try {
@@ -13,7 +13,7 @@ export default function QuizzesRoutes(app) {
     }
   });
 
-  // 创建新的 Quiz
+  // create new Quiz
   app.post("/api/quizzes", async (req, res) => {
     const newQuiz = req.body;
     try {
@@ -21,14 +21,14 @@ export default function QuizzesRoutes(app) {
       res.status(201).json({
         message: `Quiz: "${createdQuiz.title}" has been created`,
         quiz: createdQuiz,
-      }); // 返回确认信息和新创建的 Quiz
+      }); // retur info and new Quiz
     } catch (error) {
       console.error("Error creating quiz:", error);
       res.status(500).json({ message: "Error when creating new Quiz" });
     }
   });
 
-  // 更新 Quiz
+  // update Quiz
   app.put("/api/quizzes/:quizId", async (req, res) => {
     const { quizId } = req.params;
     const quizUpdates = req.body;
@@ -45,17 +45,17 @@ export default function QuizzesRoutes(app) {
     }
   });
 
-  // 删除 Quiz
+  // delete Quiz
   app.delete("/api/quizzes/:quizId", async (req, res) => {
     const { quizId } = req.params;
     try {
-      // 查找待删除的 Quiz
+      // find the Quiz which is going to be deleted
       const quiz = await quizzesDao.findQuizById(quizId);
       if (!quiz) {
         return res.status(404).json({ message: `Quiz ${quizId} not found` });
       }
 
-      // 删除 Quiz
+      // delete Quiz
       const status = await quizzesDao.deleteQuiz(quizId);
       if (status.deletedCount === 1) {
         res.status(200).json({ message: `Quiz: "${quiz.title}" deleted` });
@@ -68,7 +68,7 @@ export default function QuizzesRoutes(app) {
     }
   });
 
-  // 查询所有 Quizzes
+  // find all Quizzes
   app.get("/api/quizzes", async (req, res) => {
     try {
       const quizzes = await quizzesDao.findAllQuizzes();
@@ -79,7 +79,7 @@ export default function QuizzesRoutes(app) {
     }
   });
 
-  // 查询单个 Quiz
+  // find a Quiz with quizId
   app.get("/api/quizzes/:quizId", async (req, res) => {
     const { quizId } = req.params;
     try {

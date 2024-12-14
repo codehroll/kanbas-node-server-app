@@ -1,20 +1,20 @@
 import * as questionsDao from "./dao.js";
 
 export default function QuestionsRoutes(app) {
-    // 获取所有题目
+  // find all the Questions
   app.get("/api/questions", async (req, res) => {
     const questions = await questionsDao.findAllQuestions();
     res.json(questions);
   });
 
-  // 获取某个 Quiz 的所有题目
+  // find all the Questions for a Quiz
   app.get("/api/quizzes/:quizId/questions", async (req, res) => {
     const { quizId } = req.params;
     const questions = await questionsDao.findQuestionsForQuiz(quizId);
     res.json(questions);
   });
 
-  // 创建新题目
+  // create a Question
   app.post("/api/questions", async (req, res) => {
     const question = req.body;
     try {
@@ -26,7 +26,7 @@ export default function QuestionsRoutes(app) {
     }
   });
 
-  // 更新题目
+  // update a Question
   app.put("/api/questions/:questionId", async (req, res) => {
     const { questionId } = req.params;
     const updates = req.body;
@@ -43,7 +43,7 @@ export default function QuestionsRoutes(app) {
     }
   });
 
-  // 删除题目
+  // delete a Question
   app.delete("/api/questions/:questionId", async (req, res) => {
     const { questionId } = req.params;
     try {
@@ -59,7 +59,7 @@ export default function QuestionsRoutes(app) {
     }
   });
 
-  // 获取单个题目
+  // find a Question by questionId
   app.get("/api/questions/:questionId", async (req, res) => {
     const { questionId } = req.params;
     try {

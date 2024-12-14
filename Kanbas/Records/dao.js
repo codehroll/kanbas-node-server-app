@@ -1,12 +1,12 @@
 import RecordModel from "./model.js";
 
-// 创建记录
+// create a record
 export const createRecord = async (record) => {
   console.log("Creating record with data:", record);
   return RecordModel.create(record);
 };
 
-// 获取某个 Quiz 的所有记录
+// find all records for a Quiz
 export const findRecordsForQuiz = async (quizId) => {
   console.log("Finding records for quizId:", quizId);
   const records = await RecordModel.find({ quizId: quizId.toString() });
@@ -14,7 +14,7 @@ export const findRecordsForQuiz = async (quizId) => {
   return records;
 };
 
-// 获取某个 User 的所有记录
+// find all records for a User
 export const findRecordsForUser = async (userId) => {
   console.log("Finding records for userId");
   const records = await RecordModel.find({ userId: userId.toString() });
@@ -22,7 +22,7 @@ export const findRecordsForUser = async (userId) => {
   return records;
 };
 
-// 获取某个 Quiz 下某个用户的所有记录
+// find all the records for a User in a Quiz
 export const findRecordsForQuizAndUser = async (quizId, userId) => {
   console.log("Finding records for quizId, ", quizId, " and userId, ", userId);
 
@@ -30,12 +30,12 @@ export const findRecordsForQuizAndUser = async (quizId, userId) => {
     quizId: quizId.toString(),
     userId: userId.toString(),
   });
-  
+
   console.log("Found records for quizId and userId", records);
   return records;
 };
 
-// 删除记录
+// delete a record
 export const deleteRecord = async (recordId) => {
   console.log("Deleting record with recordId:", recordId);
   const result = await RecordModel.deleteOne({ _id: recordId });
