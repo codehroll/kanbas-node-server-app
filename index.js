@@ -9,6 +9,9 @@ import CourseRoutes from "./Kanbas/Courses/routes.js";
 import session from "express-session";
 import ModuleRoutes from "./Kanbas/Modules/routes.js";
 import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
+import QuizzesRoutes from "./Kanbas/Quizzes/routes.js";
+import QuestionsRoutes from "./Kanbas/Questions/routes.js";
+import RecordsRoutes from "./Kanbas/Records/routes.js";
 import mongoose from "mongoose";
 import "dotenv/config";
 
@@ -47,6 +50,9 @@ UserRoutes(app);
 CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
+QuizzesRoutes(app);
+QuestionsRoutes(app);
+RecordsRoutes(app);
 
 Hello(app);
 Lab5(app);
